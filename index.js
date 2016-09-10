@@ -78,7 +78,7 @@
                 calculateBestRoute(response);
                   
             } else {
-                  alert("error")
+                 alert("error")
             }
           
           }
@@ -87,6 +87,7 @@
     }
 
     function calculateBestRoute(response) {
+
         if (response.routes.length == 1) {
             directionsDisplay.setDirections(response);
         } else {
@@ -134,3 +135,4 @@
         
         return mph;
     }
+
