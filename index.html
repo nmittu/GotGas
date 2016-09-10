@@ -31,12 +31,12 @@
             <form class="carInfo">
               <div class="form-group">
                 <label for="">City Mileage</label>
-                <input value="12" id="cityMiles" type="" class="form-control" aria-describedby="cityMiles" placeholder="City">
+                <input value="30" id="cityMiles" type="" class="form-control" aria-describedby="cityMiles" placeholder="City">
     
               </div>
               <div class="form-group">
                 <label for="">Highway Mileage</label>
-                <input value="55" id="highwayMiles" type="" class="form-control" placeholder="Highway">
+                <input value="41" id="highwayMiles" type="" class="form-control" placeholder="Highway">
               </div>
               
               <div class="form-group">
@@ -51,7 +51,11 @@
               </div>
             </form>
             <button id="goButton" class="btn goButton" onclick="calcRoute()">Go!</button> 
-            <div id="totalGasUsed" class="output">TestText</div>
+                        <button id="nextRoutes" class="btn toggleRoute" onclick="next()">Next</button> 
+
+            <button id="prevRoutes" class="btn toggleRoute" onclick="prev()">Prev</button> 
+            <div id="totalGasUsed" class="output">Gallons Used</div>
+            <div id="distance" class="output">Distance</div>
         </div> 
         
         <div class="mapholder col-sm-8">
@@ -64,7 +68,7 @@
    
     <script src="index.js"></script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDShnHmFJk3s6Hgs_otZKqn3FfZwpUQ478&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDShnHmFJk3s6Hgs_otZKqn3FfZwpUQ478&callback=initMap&libraries=places">
     </script>
   </body>
 </html>

@@ -9,6 +9,8 @@
     var pos;
     var map;
     var displayArr = [];
+    var routes = [];
+    var currentRoute = null;
 
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -56,6 +58,7 @@
     function calcRoute() {
         for(var i = 0; i < displayArr.length; i ++){
           displayArr[i].setMap(null)
+          routes.splice(0, 1);
         }
         
         var start = document.getElementById('fromInput').value;
@@ -89,7 +92,7 @@
     }
 
     function calculateBestRoute(response) {
-        
+        routes = response.routes;
         if (response.routes.length == 1) {
             displayArr[0] = new google.maps.DirectionsRenderer({
                 map: map,
@@ -119,16 +122,53 @@
                         strokeColor: i == bestRoute ? "green" : "grey"
                     }
                	});
-               	
-               /*	google.maps.event.addListener(displayArr[i], 'click', function(evt) {
-               	    document.getElementById('totalGasUsed').value = "you clicked route: "+ i+1 
-               	})*/
 			}
 			
-
-			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]) + "gallons"
+            currentRoute = bestRoute;
+			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]) + " gallons"
 			
         }
+    }
+    
+    function prev(){
+        displayArr[currentRoute].setOptions({
+            polylineOptions: {
+                        strokeColor: "grey"
+                    }
+        })
+        displayArr[currentRoute].setMap(map)
+        currentRoute = currentRoute-1
+        if(currentRoute < 0){
+            currentRoute = displayArr.length-1
+        }
+        displayArr[currentRoute].setOptions({
+            polylineOptions: {
+                        strokeColor: "green"
+                    }
+        })
+        displayArr[currentRoute].setMap(map)
+        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]) + " gallons"
+    }
+    
+    function next(){
+        displayArr[currentRoute].setOptions({
+            polylineOptions: {
+                        strokeColor: "grey"
+                    }
+        })
+        displayArr[currentRoute].setMap(map)
+        currentRoute = currentRoute+1
+        console.log("current: " +currentRoute +"length: " +displayArr.length)
+        if(currentRoute >= displayArr.length){
+            currentRoute = 0
+        }
+        displayArr[currentRoute].setOptions({
+            polylineOptions: {
+                        strokeColor: "green"
+                    }
+        })
+        displayArr[currentRoute].setMap(map)
+        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]) + " gallons"
     }
         
     function calculateRoadWeight(route) {
@@ -139,10 +179,10 @@
                     var mph = calculateRoadType(route.legs[i].steps[j]);
                     if (mph >= 55) {
                         var hM = document.getElementById('highwayMiles').value ;
-                        weight += ((mph / hM)*(route.legs[i].steps[j].duration.value/360));
+                        weight += ((mph / hM)*(route.legs[i].steps[j].duration.value/3600));
                     } else {
                         var cM = document.getElementById('cityMiles').value ;
-                        weight += ((mph / cM)*(route.legs[i].steps[j].duration.value/360));
+                        weight += ((mph / cM)*(route.legs[i].steps[j].duration.value/3600));
                     }
                 }
             }

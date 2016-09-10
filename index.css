@@ -31,3 +31,10 @@ html, body {
         margin-top: 10px;
          border-radius: 4px;
       }
+      .toggleRoute{
+        background-color:#c0dfd9;
+         border-radius: 4px;
+         float: right;
+         margin-right: 5px;
+         margin-left: 5px;
+      }
