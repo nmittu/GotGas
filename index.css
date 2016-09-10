@@ -23,3 +23,11 @@ html, body {
       .goButton {
           background-color:#c0dfd9;
       }
+      
+      .output{
+        height: auto;
+        background-color: white; 
+        padding: 5px;
+        margin-top: 10px;
+         border-radius: 4px;
+      }

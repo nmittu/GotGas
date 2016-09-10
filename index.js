@@ -38,10 +38,12 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
     
-    directionsService = new google.maps.DirectionsService();
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
+        directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
     }
+
+    
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
@@ -101,7 +103,6 @@
             var RoadWeight = calculateRoadWeight(response.routes[0]);
             var bestRoute = 0;
             for (var i = 1; i < response.routes.length; i++) {
-                console.log("first" + response.routes.length)
                 var Temp = calculateRoadWeight(response.routes[i]);
                 if (Temp < RoadWeight) {
                     RoadWeight = Temp;
@@ -118,30 +119,43 @@
                         strokeColor: i == bestRoute ? "green" : "grey"
                     }
                	});
+               	
+               /*	google.maps.event.addListener(displayArr[i], 'click', function(evt) {
+               	    document.getElementById('totalGasUsed').value = "you clicked route: "+ i+1 
+               	})*/
 			}
+			
+
+			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]) + "gallons"
+			
         }
     }
         
     function calculateRoadWeight(route) {
-        console.log("calRW called")
-        var weight = 0;
-        for (i = 0; i < route.legs.length; i++) {
-            var mph = calculateRoadType(route.legs[i]);
-                if (mph >= 55) {
-                    var hM = parseInt(document.getElementById('highwayMiles').value);
-                    weight += (mph / hM);
-                } else {
-                    var cM = parseInt(document.getElementById('cityMiles').value);
-                    weight += (mph / cM);
+            var weight = 0;
+            
+            for (var i = 0; i < route.legs.length; i++) {
+                for (var j = 0; j < route.legs[i].steps.length; j++) {
+                    var mph = calculateRoadType(route.legs[i].steps[j]);
+                    if (mph >= 55) {
+                        var hM = document.getElementById('highwayMiles').value ;
+                        weight += ((mph / hM)*(route.legs[i].steps[j].duration.value/360));
+                    } else {
+                        var cM = document.getElementById('cityMiles').value ;
+                        weight += ((mph / cM)*(route.legs[i].steps[j].duration.value/360));
+                    }
                 }
             }
-        return weight;
-    }
+            return weight;
+        }
       
-    function calculateRoadType(leg) {
-        // find meters per second and convert to miles per hour
-        var mph = (leg.distance.value / leg.duration.value) * 2.23694;
+      function calculateRoadType(step) {
+      // find meters per second and convert to miles per hour
+        var mph = (step.distance.value / step.duration.value) * 2.23694;
         
         return mph;
-    }
+        }
+    
+    
+
 
