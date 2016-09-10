@@ -1,5 +1,4 @@
-  
-    // Note: This example requires that you consent to location sharing when
+ // Note: This example requires that you consent to location sharing when
     // prompted by your browser. If you see the error "The Geolocation service
     // failed.", it means you probably did not give permission for the browser to
     // locate you.
@@ -27,6 +26,8 @@
                lng: position.coords.longitude
             };
 
+            document.getElementById('fromInput').value = "My Location";
+
             marker.setPosition(pos)
             map.setCenter(pos);
         }, function() {
@@ -50,45 +51,86 @@
       }
       
       
-      function calcRoute() {
+    function calcRoute() {
         for(var i = 0; i < displayArr.length; i ++){
           displayArr[i].setMap(null)
         }
         
-      var start = document.getElementById('fromInput').value;
-      var end = document.getElementById('toInput').value;
-      if(start.toLowerCase() == "my location"){
-        if(pos){
-          start = pos
+        var start = document.getElementById('fromInput').value;
+        var end = document.getElementById('toInput').value;
+        if(start.toLowerCase() == "my location"){
+            if(pos){
+                start = pos
+            }
+            else alert("Your browser does not support location. Please enter an address")
         }
-        else alert("Your browser does not support location. Please enter an address")
-      }
-      var request = {
-        origin: start,
-        destination: end,
-        travelMode: 'DRIVING',
-        provideRouteAlternatives: true
-      };
-      directionsService.route(
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING',
+            provideRouteAlternatives: true
+        };
+        directionsService.route(
           request,
           function (response, status) {
-              if (status == google.maps.DirectionsStatus.OK) {
-                
-                  for (var i = 0, len = response.routes.length; i < len; i++) {
-                      displayArr[i] = new google.maps.DirectionsRenderer({
-                          map: map,
-                          directions: response,
-                          routeIndex: i
-                      });
-                  }
-              } else {
+            if (status == google.maps.DirectionsStatus.OK) {
+
+                calculateBestRoute(response);
+                  
+            } else {
                   alert("error")
-              }
+            }
           
           }
-      );
+        );
     
     }
-    
-    
-    
+
+    function calculateBestRoute(response) {
+        if (response.routes.length == 1) {
+            directionsDisplay.setDirections(response);
+        } else {
+            var RoadWeight = calculateRoadWeight(response.routes[0]);
+            var bestRoute = 0;
+            for (i = 1; i < response.routes.length; i++) {
+                var Temp = calculateRoadWeight(response.routes[i]);
+                if (Temp < RoadWeight) {
+                    RoadWeight = Temp;
+                    bestRoute = i;
+                }
+            }
+
+			for (i = 0; i < response.routes.length; i++) {
+				displayArr[i] = new google.maps.DirectionsRenderer({
+                          map: map,
+                          directions: response,
+                          routeIndex: i,
+                          polylineOptions: {
+                          	strokeColor: i == bestRoute ? "green" : "grey"
+                          }
+               	});
+			}
+        }
+    }
+        
+    function calculateRoadWeight(route) {
+        var weight = 0;
+        for (i = 0; i < route.legs.length; i++) {
+            var mph = calculateRoadType(route.legs[i]);
+                if (mph >= 55) {
+                    var hM = document.getElementById('highwayMiles').value;
+                    weight += (mph / hM);
+                } else {
+                    var cM = document.getElementById('cityMiles').value;
+                    weight += (mph / cM);
+                }
+            }
+        return weight;
+    }
+      
+    function calculateRoadType(leg) {
+        // find meters per second and convert to miles per hour
+        var mph = (leg.distance.value / leg.duration.value) * 2.23694;
+        
+        return mph;
+    }
