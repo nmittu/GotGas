@@ -87,20 +87,21 @@
     }
 
     function calculateBestRoute(response) {
-
+        
         if (response.routes.length == 1) {
             displayArr[0] = new google.maps.DirectionsRenderer({
-                          map: map,
-                          directions: response,
-                          routeIndex: 0,
-                          polylineOptions: {
-                          strokeColor:"green"
-                          }
-               	});
+                map: map,
+                directions: response,
+                routeIndex: 0,
+                polylineOptions: {
+                    strokeColor:"green"
+                }
+            });
         } else {
             var RoadWeight = calculateRoadWeight(response.routes[0]);
             var bestRoute = 0;
-            for (i = 1; i < response.routes.length; i++) {
+            for (var i = 1; i < response.routes.length; i++) {
+                console.log("first" + response.routes.length)
                 var Temp = calculateRoadWeight(response.routes[i]);
                 if (Temp < RoadWeight) {
                     RoadWeight = Temp;
@@ -108,20 +109,21 @@
                 }
             }
 
-			for (i = 0; i < response.routes.length; i++) {
+			for (var i = 0; i < response.routes.length; i++) {
 				displayArr[i] = new google.maps.DirectionsRenderer({
-                          map: map,
-                          directions: response,
-                          routeIndex: i,
-                          polylineOptions: {
-                          	strokeColor: i == bestRoute ? "green" : "grey"
-                          }
+                    map: map,
+                    directions: response,
+                    routeIndex: i,
+                    polylineOptions: {
+                        strokeColor: i == bestRoute ? "green" : "grey"
+                    }
                	});
 			}
         }
     }
         
     function calculateRoadWeight(route) {
+        console.log("calRW called")
         var weight = 0;
         for (i = 0; i < route.legs.length; i++) {
             var mph = calculateRoadType(route.legs[i]);
