@@ -1,0 +1,22 @@
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color:#b3c2bf;
+      }
+      #map {
+        height: 100%;
+      }
+      .navbar{
+          background-color:#c0dfd9;
+          color:#3b3a36;
+          margin-top: 10px;
+      }
+      .navbar-brand{
+          color:#3b3a36 !important;
+      }
+      .mapholder{
+        height:400px;
+          margin: auto;
+      }
+      
