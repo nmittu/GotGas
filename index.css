@@ -20,3 +20,6 @@ html, body {
           margin: auto;
       }
       
+      .goButton {
+          background-color:#c0dfd9;
+      }
