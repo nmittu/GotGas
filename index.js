@@ -27,6 +27,8 @@
                lng: position.coords.longitude
             };
 
+            document.getElementById('fromInput').value = "My Location";
+
             marker.setPosition(pos)
             map.setCenter(pos);
         }, function() {
