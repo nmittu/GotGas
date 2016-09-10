@@ -9,6 +9,7 @@
     var directionsService;
     var pos;
     var map;
+    var displayArr = [];
 
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -38,7 +39,7 @@
     
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
-      directionsDisplay.setMap(map);
+    directionsDisplay.setMap(map);
     }
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -50,9 +51,13 @@
       
       
       function calcRoute() {
+        for(var i = 0; i < displayArr.length; i ++){
+          displayArr[i].setMap(null)
+        }
+        
       var start = document.getElementById('fromInput').value;
       var end = document.getElementById('toInput').value;
-      if(start == "my location"){
+      if(start.toLowerCase() == "my location"){
         if(pos){
           start = pos
         }
@@ -68,8 +73,9 @@
           request,
           function (response, status) {
               if (status == google.maps.DirectionsStatus.OK) {
+                
                   for (var i = 0, len = response.routes.length; i < len; i++) {
-                      new google.maps.DirectionsRenderer({
+                      displayArr[i] = new google.maps.DirectionsRenderer({
                           map: map,
                           directions: response,
                           routeIndex: i
@@ -78,9 +84,10 @@
               } else {
                   alert("error")
               }
+          
           }
       );
-
+    
     }
     
     
