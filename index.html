@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>GotGas?</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8">
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <!-- Bootstrap -->
@@ -11,44 +11,49 @@
 <!--CSS -->
 <link rel="stylesheet" type="text/css" href="index.css">
 
+
   </head>
-    <body>
-    
-    
-        
-        </head>
+
   <body>
-    <div id="floating-panel">
-    <b>Travel Information: </b>
-		<div class="form-group">
-                <label for="">City Mileage</label>
-                <input value="" id="cityMiles" type="" class="form-control" aria-describedby="cityMiles" placeholder="City">
+    <div id="floating-panel" class="floating-p">
+      <!--<b>Travel Information: </b>-->
+      <div class="cityHighway">
+  		  <div class="form-group">
+                  <label for="">City Mileage</label>
+                  <input value="" id="cityMiles" type="" class="form-control" aria-describedby="cityMiles" placeholder="City">
         </div>
-		<div class="form-group">
-                <label for="">Highway Mileage</label>
-                <input value="" id="highwayMiles" type="" class="form-control" placeholder="Highway">
+  		  <div class="form-group">
+                  <label for="">Highway Mileage</label>
+                  <input value="" id="highwayMiles" type="" class="form-control" placeholder="Highway" >
         </div>
-		<div class="form-group">
-                 <label for="">From:</label>
-                <input  id="fromInput" type="" class="form-control" placeholder="from">
-        </div>
-        <div class="form-group">
-                <label for="">To:</label>
-                <input value="" id="toInput" type="" class="form-control" aria-describedby="to" placeholder="to">
-        </div>
-
-            <button id="goButton" class="btn goButton" onclick="calcRoute()">Go!</button> 
-                        <button id="nextRoutes" class="btn toggleRoute" onclick="next()">Next</button> 
-
-            <button id="prevRoutes" class="btn toggleRoute" onclick="prev()">Prev</button> 
+      </div>
+      <div class="tofrom">
+    		  <div class="form-group " style="width: 100%;">
+                     <label for="">From:</label>
+                    <input  id="fromInput" type="" class="form-control" placeholder="from">
+          </div>
+          <div class="form-group" style="width: 100%;">
+                    <label for="">To:</label>
+                    <input value="" id="toInput" type="" class="form-control" aria-describedby="to" placeholder="to">
+          </div>
+      </div>
+      <div class="everythingElse">
+          <button id="goButton" class="btn goButton" onclick="calcRoute()">Go!</button> 
+          
+          <button id="nextRoutes" class="btn toggleRoute" onclick="next()">Next</button> 
+          <button id="prevRoutes" class="btn toggleRoute" onclick="prev()">Prev</button>
+          <div class="outputBoxes" style="line-height: 1.5;">
             <div id="totalGasUsed" class="output">Gallons Used</div>
             <div id="distance" class="output">Distance</div>
+          </div>
+        </div>
     </div>
     <div id="map"></div>
         
        </div>  
     </div>
  
+    
    
     <script src="index.js"></script>
     <script async defer
