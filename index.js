@@ -139,7 +139,7 @@
           	});
 			
             currentRoute = bestRoute;
-			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]) + " gallons"
+			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]).toFixed(2) + " gallons"
 			
         }
     }
@@ -161,7 +161,7 @@
                     }
         })
         displayArr[currentRoute].setMap(map)
-        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]) + " gallons"
+        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]).toFixed(2) + " gallons"
     }
     
     function next(){
@@ -182,7 +182,7 @@
                     }
         })
         displayArr[currentRoute].setMap(map)
-        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]) + " gallons"
+        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]).toFixed(2) + " gallons"
     }
         
     function calculateRoadWeight(route) {
