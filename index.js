@@ -7,9 +7,11 @@
     
     var directionsDisplay;
     var directionsService;
+    var pos;
+    var map;
 
     function initMap() {
-        var map = new google.maps.Map(document.getElementById("map"), {
+        map = new google.maps.Map(document.getElementById("map"), {
         center: {lat: -34.397, lng: 150.644},
         zoom: 12
     });
@@ -19,7 +21,7 @@
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+           pos = {
                lat: position.coords.latitude,
                lng: position.coords.longitude
             };
@@ -50,19 +52,35 @@
       function calcRoute() {
       var start = document.getElementById('fromInput').value;
       var end = document.getElementById('toInput').value;
+      if(start == "my location"){
+        if(pos){
+          start = pos
+        }
+        else alert("Your browser does not support location. Please enter an address")
+      }
       var request = {
         origin: start,
         destination: end,
-        travelMode: 'DRIVING'
+        travelMode: 'DRIVING',
+        provideRouteAlternatives: true
       };
-      directionsService.route(request, function(result, status) {
-        if (status == 'OK') {
-          directionsDisplay.setDirections(result);
-        }
-        else{
-            console.log(status)
-        }
-      });
+      directionsService.route(
+          request,
+          function (response, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                  for (var i = 0, len = response.routes.length; i < len; i++) {
+                      new google.maps.DirectionsRenderer({
+                          map: map,
+                          directions: response,
+                          routeIndex: i
+                      });
+                  }
+              } else {
+                  alert("error")
+              }
+          }
+      );
+
     }
     
     
