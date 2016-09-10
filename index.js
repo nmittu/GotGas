@@ -75,14 +75,9 @@
           request,
           function (response, status) {
               if (status == google.maps.DirectionsStatus.OK) {
-                
-                  for (var i = 0, len = response.routes.length; i < len; i++) {
-                      displayArr[i] = new google.maps.DirectionsRenderer({
-                          map: map,
-                          directions: response,
-                          routeIndex: i
-                      });
-                  }
+
+                calculateBestRoute(response);
+                  
               } else {
                   alert("error")
               }
@@ -91,6 +86,55 @@
       );
     
     }
+
+     function calculateBestRoute(response) {
+        if (response.routes.length == 1) {
+            directionsDisplay.setDirections(response);
+        } else {
+            var RoadWeight = calculateRoadWeight(response.routes[0]);
+            var bestRoute = 0;
+            for (i = 1; i < response.routes.length; i++) {
+                var Temp = calculateRoadWeight(response.routes[i]);
+                if (Temp < RoadWeight) {
+                    RoadWeight = Temp;
+                    bestRoute = i;
+                }
+            }
+
+			for (i = 0; i < response.routes.length; i++) {
+				displayArr[i] = new google.maps.DirectionsRenderer({
+                          map: map,
+                          directions: response,
+                          routeIndex: i,
+                          polylineOptions: {
+                          	strokeColor: i == bestRoute ? "green" : "grey"
+                          }
+               	});
+			}
+        }
+        }
+        
+        function calculateRoadWeight(route) {
+            var weight = 0;
+            for (i = 0; i < route.legs.length; i++) {
+                var mph = calculateRoadType(route.legs[i]);
+                if (mph >= 55) {
+                    var hM = document.getElementById('highwayMiles') ;
+                    weight += (mph / hM);
+                } else {
+                    var cM = document.getElementById('cityMiles') ;
+                    weight += (mph / cM);
+                }
+            }
+            return weight;
+        }
+      
+      function calculateRoadType(leg) {
+      // find meters per second and convert to miles per hour
+        var mph = (leg.distance.value / leg.duration.value) * 2.23694;
+        
+        return mph;
+        }
     
     
     
