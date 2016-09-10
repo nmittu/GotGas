@@ -89,7 +89,14 @@
     function calculateBestRoute(response) {
 
         if (response.routes.length == 1) {
-            directionsDisplay.setDirections(response);
+            displayArr[0] = new google.maps.DirectionsRenderer({
+                          map: map,
+                          directions: response,
+                          routeIndex: 0,
+                          polylineOptions: {
+                          strokeColor:"green"
+                          }
+               	});
         } else {
             var RoadWeight = calculateRoadWeight(response.routes[0]);
             var bestRoute = 0;
@@ -119,10 +126,10 @@
         for (i = 0; i < route.legs.length; i++) {
             var mph = calculateRoadType(route.legs[i]);
                 if (mph >= 55) {
-                    var hM = document.getElementById('highwayMiles').value;
+                    var hM = parseInt(document.getElementById('highwayMiles').value);
                     weight += (mph / hM);
                 } else {
-                    var cM = document.getElementById('cityMiles').value;
+                    var cM = parseInt(document.getElementById('cityMiles').value);
                     weight += (mph / cM);
                 }
             }
