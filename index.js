@@ -108,6 +108,7 @@
         );
     document.getElementById("right-panel").style.display = "block"
     document.getElementById("map").style.right = "276px"
+     document.getElementById("logo").style.left = "75%"
     }
 
     function calculateBestRoute(response) {
