@@ -14,7 +14,7 @@
 
   </head>
 
-  <body>
+  <body onresize="resize()">
     <div id="floating-panel" class="floating-p">
       <!--<b>Travel Information: </b>-->
       <div class="cityHighway">
@@ -47,9 +47,18 @@
             <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
             <label class="onoffswitch-label" for="myonoffswitch"></label>
             </div>
+      </div>
+      
+       <div class="toggleMap" style="display: block; ">
+            <div style="text-align: left;">
+                <b>Toggle Map</b>
+            </div>
             
-        
-        </div>
+            <div class="onoffswitch">
+            <input type="checkbox" name="toggleMap" class="onoffswitch-checkbox" id="toggleMap" checked>
+            <label class="onoffswitch-label" for="toggleMap"></label>
+            </div>
+      </div>
         
       <div class="everythingElse">
           <button id="goButton" class="btn goButton" onclick="calcRoute()">Go!</button> 
@@ -62,6 +71,8 @@
           </div>
         </div>
     </div>
+    
+    
      <div id="right-panel"></div>
     <div id="map" style="position:absolute;"></div>
    

@@ -95,7 +95,8 @@
           
           }
         );
-    
+    document.getElementById("right-panel").style.display = "block"
+    document.getElementById("map").style.right = "276px"
     }
 
     function calculateBestRoute(response) {
@@ -175,6 +176,9 @@
 
     }
     
+    
+    
+    
     function next(){
        
         //displayArr[currentRoute].setMap(map)
@@ -228,4 +232,39 @@
     
     
 
+document.addEventListener("DOMContentLoaded", function (event) {
+    var _selector = document.getElementById('toggleMap');
+    _selector.addEventListener('change', function (event) {
+        if (_selector.checked) {//map visisble
+            if(window.screen.availWidth <= 544){
+                //in mobile
+                document.getElementById("map").style.display = "block"
+                document.getElementById("right-panel").style.display = "none"
+                document.getElementById("map").style.right = "0%"
+            }
+            else{
+                document.getElementById("map").style.right = "0%"
+            }
+            
+        } else {//map not visible
+            if(window.screen.availWidth <= 544){
+                //mobile
+                document.getElementById("map").style.display = "none"
+                document.getElementById("right-panel").style.display = "block"
+                
+            }
+            else{
+                //not mobile
+                document.getElementById("map").style.right = "276px"
+            }
+            
+        }
+    });
+});
 
+
+function resize(){
+    if(window.screen.availWidth > 544){ // not mobile
+        document.getElementById("map").style.display = "block";
+    }
+}
