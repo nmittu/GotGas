@@ -1,3 +1,5 @@
+   
+
       html, body {
        height:100vh;
         margin: 0;
@@ -12,6 +14,10 @@
         display: hidden;
       }
 
+    .btn{
+      background-color: #4a80f5 !important;
+      color: white !important;
+    }
       
       #right-panel select, #right-panel input {
         font-size: 15px;
@@ -79,16 +85,24 @@
         z-index: 5;
         background-color: #fff;
         padding: 5px;
-        border: 1px solid #999;
+        border: 1px solid #4a80f5;
+        border-radius: 4px;
         text-align: center;
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
         padding-left: 10px;
         overflow: scroll;
-
+        overflow-x: hidden;
       }
-      
-      
+
+      .output {
+        border: 1px solid #f18d00;
+        display: inline-table;
+        padding: 5px;
+        margin-top: 0px; 
+        font-size:3vw;
+        border-radius: 4px;
+      }
       .navbar{
           background-color:#c0dfd9;
           color:#3b3a36;
@@ -105,6 +119,11 @@
       .goButton {
           background-color:#c0dfd9;
           float: left;
+          height: 34px;
+      }
+      .goButton img{
+        max-height: 100%;
+        max-width: 100%
       }
   
       .toggleRoute{
@@ -118,6 +137,7 @@
       
       /* Small devices (landscape phones, 544px and up)*/
       @media only screen and (max-width: 544px) { 
+        
         .toggleMap{
           margin-top: -44px;
           margin-left: 106px;
@@ -156,7 +176,7 @@
           position: absolute;
           overflow: hidden;
           background-color: rgb(229, 227, 223);
-          top: 271px;
+          top: 249px;
           right: 0%;
           left: 0%;
           bottom: 0%;
@@ -165,28 +185,35 @@
        
         #right-panel{
           position: absolute;
-          top: 314px;
+          top: 245px;
           right: 0%;
           left: 0%;
           width: 100%;
           bottom: 0%;
           display: none;
         }
+        
     }
       
 
       /* Medium devices (tablets, 768px and up)*/
 
       @media only screen and (min-width: 545px) { 
+        .output{
+          margin-top: 10px;
+          font-size:1em;
+        }
         #map{
           position: absolute;
           top: 0%;
           left: 0%;
-            bottom: 0%;
+          bottom: 0%;
           right: 0%;
           display: block;
         }
-
+        .floating-p {
+          bottom: 3%;
+        }
       }
       
       /* Large devices (desktops, 992px and up)*/

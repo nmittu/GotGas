@@ -51,17 +51,19 @@
       
        <div class="toggleMap" style="display: block; ">
             <div style="text-align: left;">
-                <b>Toggle Map</b>
+                <b>Toggle Directions</b>
             </div>
             
             <div class="onoffswitch">
-            <input type="checkbox" name="toggleMap" class="onoffswitch-checkbox" id="toggleMap" checked>
+            <input type="checkbox" name="toggleMap" class="onoffswitch-checkbox" id="toggleMap">
             <label class="onoffswitch-label" for="toggleMap"></label>
             </div>
       </div>
         
       <div class="everythingElse">
-          <button id="goButton" class="btn goButton" onclick="calcRoute()">Go!</button> 
+          <button id="goButton" class="btn goButton" onclick="calcRoute()">
+            <img src="route_icon.png"></img>
+          </button> 
           
           <button id="nextRoutes" class="btn toggleRoute" onclick="next()">Next</button> 
           <button id="prevRoutes" class="btn toggleRoute" onclick="prev()">Prev</button>

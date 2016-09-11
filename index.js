@@ -19,6 +19,13 @@
         zoom: 12
     });
         
+        //auto complete
+        var input = document.getElementById('toInput');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        var input2 = document.getElementById('fromInput');
+        var autocomplete2 = new google.maps.places.Autocomplete(input2);
+
     var marker = new google.maps.Marker({map: map,});
 
     // Try HTML5 geolocation.
@@ -58,6 +65,7 @@
       
       
     function calcRoute() {
+        document.getElementById("toggleMap").checked = true;
         for(var i = 0; i < displayArr.length; i++){
           displayArr[i].setMap(null);
           routes.splice(0, 1);
@@ -235,7 +243,7 @@
 document.addEventListener("DOMContentLoaded", function (event) {
     var _selector = document.getElementById('toggleMap');
     _selector.addEventListener('change', function (event) {
-        if (_selector.checked) {//map visisble
+        if (!_selector.checked) {//map visisble
             if(window.screen.availWidth <= 544){
                 //in mobile
                 document.getElementById("map").style.display = "block"
