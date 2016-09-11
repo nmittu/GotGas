@@ -11,6 +11,7 @@
     var displayArr = [];
     var routes = [];
     var currentRoute = null;
+    var responseGlobal;
 
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -43,6 +44,7 @@
         directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
         directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('right-panel'));
     }
 
     
@@ -72,17 +74,19 @@
             }
             else alert("Your browser does not support location. Please enter an address")
         }
+        var toll = document.getElementById('myonoffswitch').checked;
         var request = {
             origin: start,
             destination: end,
             travelMode: 'DRIVING',
+            avoidTolls: toll,
             provideRouteAlternatives: true
         };
         directionsService.route(
           request,
           function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-
+                responseGlobal = response
                 calculateBestRoute(response);
                   
             } else {
@@ -138,51 +142,54 @@
                	}
           	});
 			
+			var modifiedResponse = response;
+			modifiedResponse.routes = [response.routes[bestRoute]]
+			
+			directionsDisplay.setDirections(modifiedResponse);
+			
             currentRoute = bestRoute;
-			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]) + " gallons"
+			document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(response.routes[bestRoute]).toFixed(2) + " gallons"
+			document.getElementById('distance').innerHTML = (getRouteDistance(routes[currentRoute])*0.000621371192).toFixed(2) + " miles"
+
 			
         }
     }
     
     function prev(){
-        displayArr[currentRoute].setOptions({
-            polylineOptions: {
-                        strokeColor: "grey"
-                    }
-        })
+        
         displayArr[currentRoute].setMap(map)
         currentRoute = currentRoute-1
         if(currentRoute < 0){
             currentRoute = displayArr.length-1
         }
-        displayArr[currentRoute].setOptions({
-            polylineOptions: {
-                        strokeColor: "green"
-                    }
-        })
-        displayArr[currentRoute].setMap(map)
-        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]) + " gallons"
+        
+        var modifiedResponse = responseGlobal;
+			modifiedResponse.routes = [routes[currentRoute]]
+			
+			directionsDisplay.setDirections(modifiedResponse);
+       
+        //displayArr[currentRoute].setMap(map)
+        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]).toFixed(2) + " gallons"
+			document.getElementById('distance').innerHTML = (getRouteDistance(routes[currentRoute])*0.000621371192).toFixed(2) + " miles"
+
     }
     
     function next(){
-        displayArr[currentRoute].setOptions({
-            polylineOptions: {
-                        strokeColor: "grey"
-                    }
-        })
-        displayArr[currentRoute].setMap(map)
+       
+        //displayArr[currentRoute].setMap(map)
         currentRoute = currentRoute+1
         console.log("current: " +currentRoute +"length: " +displayArr.length)
         if(currentRoute >= displayArr.length){
             currentRoute = 0
         }
-        displayArr[currentRoute].setOptions({
-            polylineOptions: {
-                        strokeColor: "green"
-                    }
-        })
-        displayArr[currentRoute].setMap(map)
-        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]) + " gallons"
+         var modifiedResponse = responseGlobal;
+			modifiedResponse.routes = [routes[currentRoute]]
+			
+			directionsDisplay.setDirections(modifiedResponse);
+        //displayArr[currentRoute].setMap(map)
+        document.getElementById('totalGasUsed').innerHTML = calculateRoadWeight(routes[currentRoute]).toFixed(2) + " gallons"
+			document.getElementById('distance').innerHTML = (getRouteDistance(routes[currentRoute])*0.000621371192).toFixed(2) + " miles"
+
     }
         
     function calculateRoadWeight(route) {
