@@ -5,10 +5,67 @@
         min-width: 320px;
       }
       
-      .tofrom{
-        
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+      #right-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
       }
   
+  .onoffswitch {
+        position: relative; width: 46px;
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-checkbox {
+        display: none;
+    }
+    .onoffswitch-label {
+        display: block; overflow: hidden; cursor: pointer;
+        height: 15px; padding: 0; line-height: 15px;
+        border: 0px solid #FFFFFF; border-radius: 23px;
+        background-color: #9E9E9E;
+    }
+    .onoffswitch-label:before {
+        content: "";
+        display: block; width: 23px; margin: -4px;
+        background: #FFFFFF;
+        position: absolute; top: 0; bottom: 0;
+        right: 27px;
+        border-radius: 23px;
+        box-shadow: 0 6px 12px 0px #757575;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label {
+        background-color: #42A5F5;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+       border-color: #42A5F5;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+        right: 0px; 
+        background-color: #2196F3; 
+        box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
+    }
       .form-group{
         max-width: inherit;
         white-space: nowrap;
@@ -25,7 +82,8 @@
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
         padding-left: 10px;
-        min-width: 310px;
+        overflow: scroll;
+
       }
       
       
@@ -37,10 +95,10 @@
       .navbar-brand{
           color:#3b3a36 !important;
       }
-      .mapholder{
+      /*.mapholder{
         height:400px;
           margin: auto;
-      }
+      }*/
       
       .goButton {
           background-color:#c0dfd9;
@@ -101,18 +159,28 @@
       }
 
       /* Medium devices (tablets, 768px and up)*/
-      @media only screen and (min-width: 768px) { 
-      #map {
-        height: 100%;
-      }
+
+      @media only screen and (min-width: 545px) { 
+        #map{
+          position: absolute;
+          top: 0%;
+          left: 0%;
+            bottom: 0%;
+          right: 0%;
+        }
+
       }
       
       /* Large devices (desktops, 992px and up)*/
       @media only screen and (min-width: 992px) { 
-    
+        #map {
+        right: 394px;
+      }
       }
       
       /* Extra large devices (large desktops, 1200px and up)*/
       @media only screen and (min-width: 1200px) { 
-       
+       #map{
+         
+       }
       }

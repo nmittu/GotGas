@@ -37,6 +37,20 @@
                     <input value="" id="toInput" type="" class="form-control" aria-describedby="to" placeholder="to">
           </div>
       </div>
+      
+      <div style="display: block; ">
+            <div style="text-align: left;">
+                <b>Avoid Tolls:</b>
+            </div>
+            
+            <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+            <label class="onoffswitch-label" for="myonoffswitch"></label>
+            </div>
+            
+        
+        </div>
+        
       <div class="everythingElse">
           <button id="goButton" class="btn goButton" onclick="calcRoute()">Go!</button> 
           
@@ -48,9 +62,10 @@
           </div>
         </div>
     </div>
-    <div id="map"></div>
-        
-       </div>  
+     <div id="right-panel"></div>
+    <div id="map" style="position:absolute;"></div>
+   
+    </div>  
     </div>
  
     
