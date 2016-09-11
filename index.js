@@ -52,7 +52,10 @@
         directionsDisplay = new google.maps.DirectionsRenderer();
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel(document.getElementById('right-panel'));
+    
     }
+    
+     
 
     
 
@@ -252,6 +255,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
             else{
                 document.getElementById("map").style.right = "0%"
+                document.getElementById("logo").style.left = "95%"
             }
             
         } else {//map not visible
@@ -264,6 +268,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             else{
                 //not mobile
                 document.getElementById("map").style.right = "276px"
+                document.getElementById("logo").style.left = "75%"
             }
             
         }

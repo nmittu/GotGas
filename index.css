@@ -1,5 +1,21 @@
    
-
+    .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+      box-shadow: none !important;
+    }
+     .onoffswitch-label:before {
+       box-shadow: none !important;
+     }
+     
+     .logo {
+       
+        table-layout: fixed;
+        border-collapse: collapse;
+        z-index: 10; position:absolute;
+        margin: 0;
+        padding: 0;
+        display: none;
+    }
+    
       html, body {
        height:100vh;
         margin: 0;
@@ -17,6 +33,9 @@
     .btn{
       background-color: #4a80f5 !important;
       color: white !important;
+    }
+    .everythingElse{
+      margin-top: 15px;
     }
       
       #right-panel select, #right-panel input {
@@ -203,6 +222,10 @@
           margin-top: 10px;
           font-size:1em;
         }
+        .logo {
+          display: block;
+          left:90%;
+        }
         #map{
           position: absolute;
           top: 0%;
@@ -222,6 +245,10 @@
         right: 0%;
         display: block;
       }
+      .logo {
+          display: block;
+          left:92%;
+        }
       }
       
       /* Extra large devices (large desktops, 1200px and up)*/
